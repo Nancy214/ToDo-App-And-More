@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>To-Do List</h1>
+  <h3>Your Today's To-Do List</h3>
 
   <mat-list>
     <mat-list-item *ngFor="let todo of todos" style="height: auto">
@@ -11,7 +11,7 @@
         >
         </mat-checkbox>
         <div *ngIf="editingToDoId !== todo.id" class="todo-view">
-          <h3>{{ todo.title }}</h3>
+          <h5>{{ todo.title }}</h5>
           <div class="actions">
             <button
               mat-icon-button

@@ -1,0 +1,46 @@
+<div class="container">
+  <h1>To-Do List</h1>
+
+  <mat-list>
+    <mat-list-item *ngFor="let todo of todos" style="height: auto;">
+      <mat-card>
+        <!-- View Mode -->
+        <div *ngIf="editingToDoId !== todo.id" class="todo-view">
+          <h3>{{ todo.title }}</h3>
+          <div class="actions">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="startEditing(todo.id)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteTodo(todo.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Edit Mode -->
+        <div *ngIf="editingToDoId === todo.id" class="todo-edit">
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput #titleInput [(ngModel)]="todo.title" />
+          </mat-form-field>
+          <div class="actions">
+            <button
+              mat-button
+              color="primary"
+              (click)="saveEdit(todo.id, titleInput.value)"
+            >
+              Save
+            </button>
+            <button mat-button color="warn" (click)="cancelEdit()">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </mat-card>
+    </mat-list-item>
+  </mat-list>
+</div>

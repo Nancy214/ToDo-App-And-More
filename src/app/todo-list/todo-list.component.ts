@@ -10,7 +10,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { Todo } from '../models/todo';
+import { CATEGORIES, Todo } from '../models/todo';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTodoDialogComponent } from '../add-todo-dialog/add-todo-dialog.component';
@@ -34,22 +34,60 @@ import { AddTodoDialogComponent } from '../add-todo-dialog/add-todo-dialog.compo
 })
 export class TodoListComponent {
   todos: Todo[] = [
-    { id: 1, title: 'Buy groceries', completed: false },
-    { id: 2, title: 'Clean the house', completed: false },
-    { id: 3, title: 'Workout', completed: false },
+    {
+      id: 1,
+      title: 'Write 5 pages',
+      category: 'Work',
+      completed: false,
+    },
+    {
+      id: 2,
+      title: 'Proofread documents',
+      category: 'Work',
+      completed: false,
+    },
+    {
+      id: 3,
+      title: 'Walk 5 miles',
+      category: 'Personal',
+      completed: false,
+    },
+    {
+      id: 4,
+      title: 'Do skincare',
+      category: 'Personal',
+      completed: false,
+    },
+    {
+      id: 5,
+      title: 'Buy groceries',
+      category: 'Home',
+      completed: false,
+    },
+    {
+      id: 6,
+      title: 'Change towels',
+      category: 'Home',
+      completed: false,
+    },
   ];
 
+  categories = CATEGORIES;
+
   editingToDoId: number | boolean = false;
-  newToDoTitle: string = '';
 
   constructor(public snackbar: MatSnackBar, private dialog: MatDialog) {}
 
-  toggleCompletion(todo: Todo): void {
-    todo.completed = !todo.completed;
-  }
-
   startEditing(todoId: number): void {
     this.editingToDoId = todoId;
+  }
+
+  cancelEdit(): void {
+    this.editingToDoId = false;
+  }
+
+  toggleCompletion(todo: Todo): void {
+    todo.completed = !todo.completed;
   }
 
   saveEdit(todoId: number, updatedTitle: string): void {
@@ -70,10 +108,6 @@ export class TodoListComponent {
     });
   }
 
-  cancelEdit(): void {
-    this.editingToDoId = false;
-  }
-
   deleteTodo(todoId: number): void {
     this.todos = this.todos.filter((todo) => todo.id !== todoId);
     this.snackbar.open('To Do item deleted', 'Close', {
@@ -91,6 +125,7 @@ export class TodoListComponent {
         const newTodo: Todo = {
           id: this.todos.length + 1,
           title: result.title,
+          category: result.category,
           completed: false,
         };
         this.todos.push(newTodo);

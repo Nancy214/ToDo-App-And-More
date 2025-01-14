@@ -12,6 +12,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { Todo } from '../models/todo';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { AddTodoDialogComponent } from '../add-todo-dialog/add-todo-dialog.component';
 
 @Component({
   selector: 'app-todo-list',
@@ -38,8 +40,9 @@ export class TodoListComponent {
   ];
 
   editingToDoId: number | boolean = false;
+  newToDoTitle: string = '';
 
-  constructor(private snackbar: MatSnackBar) {}
+  constructor(public snackbar: MatSnackBar, private dialog: MatDialog) {}
 
   toggleCompletion(todo: Todo): void {
     todo.completed = !todo.completed;
@@ -62,7 +65,7 @@ export class TodoListComponent {
 
     todo.title = updatedTitle;
     this.editingToDoId = false;
-    this.snackbar.open('Todo updated successfully!', 'Close', {
+    this.snackbar.open('To Do item updated successfully', 'Close', {
       duration: 3000,
     });
   }
@@ -73,8 +76,26 @@ export class TodoListComponent {
 
   deleteTodo(todoId: number): void {
     this.todos = this.todos.filter((todo) => todo.id !== todoId);
-    this.snackbar.open('Todo deleted successfully!', 'Close', {
+    this.snackbar.open('To Do item deleted', 'Close', {
       duration: 3000,
+    });
+  }
+
+  openAddTodoDialog(): void {
+    const dialogRef = this.dialog.open(AddTodoDialogComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const newTodo: Todo = {
+          id: this.todos.length + 1,
+          title: result.title,
+          completed: false,
+        };
+        this.todos.push(newTodo);
+        this.snackbar.open('To Do item added', 'Close', { duration: 3000 });
+      }
     });
   }
 }

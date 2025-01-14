@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Add New To-Do</h2>
+<mat-dialog-content style="padding-top: 5px">
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="newTodoTitle" placeholder="Enter title" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-raised-button
+    style="background-color: #53a8b6; color: #ffffff"
+    (click)="onSave()"
+  >
+    Save
+  </button>
+  <button
+    mat-raised-button
+    style="background-color: #455d7a; color: #ffffff"
+    (click)="onCancel()"
+  >
+    Cancel
+  </button>
+</mat-dialog-actions>

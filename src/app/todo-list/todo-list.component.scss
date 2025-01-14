@@ -39,7 +39,9 @@ mat-checkbox {
 }
 
 .todo-view {
-  display: contents;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .todo-view p {
@@ -49,12 +51,25 @@ mat-checkbox {
   transition: color 0.3s;
 }
 
-.actions {
-  margin-left: auto;
-  gap: 10px;
-  float: inline-end;
+.todo-edit {
+  width: 100%;
+  margin-top: 5px;
 }
+
 mat-form-field {
   width: 100%;
   margin-bottom: 10px;
+  flex: 1;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+}
+
+.add-button {
+  margin-left: 15px;
+  background-color: #53a8b6 !important;
+  color: #ffffff !important;
 }

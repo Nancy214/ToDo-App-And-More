@@ -8,6 +8,7 @@
         <mat-checkbox
           [(ngModel)]="todo.completed"
           (check)="toggleCompletion(todo)"
+          [disabled]="editingToDoId === todo.id"
         >
         </mat-checkbox>
         <div *ngIf="editingToDoId !== todo.id" class="todo-view">
@@ -18,29 +19,33 @@
               color="primary"
               (click)="startEditing(todo.id)"
             >
-              <mat-icon>edit</mat-icon>
+              <mat-icon style="color: #53a8b6">edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="deleteTodo(todo.id)">
-              <mat-icon>delete</mat-icon>
+            <button mat-icon-button (click)="deleteTodo(todo.id)">
+              <mat-icon style="color: #f95959">delete</mat-icon>
             </button>
           </div>
         </div>
 
         <!-- Edit Mode -->
         <div *ngIf="editingToDoId === todo.id" class="todo-edit">
-          <mat-form-field>
+          <mat-form-field appearance="outline">
             <mat-label>Title</mat-label>
             <input matInput #titleInput [(ngModel)]="todo.title" />
           </mat-form-field>
           <div class="actions">
             <button
-              mat-button
-              color="primary"
+              mat-raised-button
+              style="background-color: #53a8b6; color: #ffffff"
               (click)="saveEdit(todo.id, titleInput.value)"
             >
               Save
             </button>
-            <button mat-button color="warn" (click)="cancelEdit()">
+            <button
+              mat-raised-button
+              style="background-color: #455d7a; color: #ffffff"
+              (click)="cancelEdit()"
+            >
               Cancel
             </button>
           </div>
@@ -48,4 +53,8 @@
       </mat-card>
     </mat-list-item>
   </mat-list>
+
+  <button mat-raised-button class="add-button" (click)="openAddTodoDialog()">
+    Add To-Do
+  </button>
 </div>

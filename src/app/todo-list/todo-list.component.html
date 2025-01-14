@@ -2,9 +2,14 @@
   <h1>To-Do List</h1>
 
   <mat-list>
-    <mat-list-item *ngFor="let todo of todos" style="height: auto;">
-      <mat-card>
+    <mat-list-item *ngFor="let todo of todos" style="height: auto">
+      <mat-card [class.completed]="todo.completed">
         <!-- View Mode -->
+        <mat-checkbox
+          [(ngModel)]="todo.completed"
+          (check)="toggleCompletion(todo)"
+        >
+        </mat-checkbox>
         <div *ngIf="editingToDoId !== todo.id" class="todo-view">
           <h3>{{ todo.title }}</h3>
           <div class="actions">

@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { NgModule } from '@angular/core';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -10,6 +8,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 import { Todo } from '../models/todo';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -25,20 +25,25 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatListModule,
     MatCardModule,
     MatSnackBarModule,
+    MatCheckboxModule,
   ],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss',
 })
 export class TodoListComponent {
   todos: Todo[] = [
-    { id: 1, title: 'Buy groceries' },
-    { id: 2, title: 'Clean the house' },
-    { id: 3, title: 'Workout' },
+    { id: 1, title: 'Buy groceries', completed: false },
+    { id: 2, title: 'Clean the house', completed: false },
+    { id: 3, title: 'Workout', completed: false },
   ];
 
   editingToDoId: number | boolean = false;
 
   constructor(private snackbar: MatSnackBar) {}
+
+  toggleCompletion(todo: Todo): void {
+    todo.completed = !todo.completed;
+  }
 
   startEditing(todoId: number): void {
     this.editingToDoId = todoId;

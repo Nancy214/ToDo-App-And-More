@@ -35,7 +35,7 @@ export class AddTodoDialogComponent {
   prorities = PRIORITIES;
 
   constructor(
-    
+    public snackbar: MatSnackBar,
     public dialogRef: MatDialogRef<AddTodoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public editTodo: any
   ) {
@@ -52,7 +52,9 @@ export class AddTodoDialogComponent {
 
   onSave(): void {
     if (!this.title.trim()) {
-      
+      this.snackbar.open('Title cannot be empty', 'Close', {
+        duration: 3000,
+      });
       return;
     }
     this.dialogRef.close({

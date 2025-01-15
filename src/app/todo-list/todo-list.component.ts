@@ -10,6 +10,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { CATEGORIES, PRIORITIES, Todo } from '../models/todo';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -30,6 +31,7 @@ import { AddTodoDialogComponent } from '../add-todo-dialog/add-todo-dialog.compo
     MatSnackBarModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatMenuModule,
   ],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss',
@@ -87,35 +89,35 @@ export class TodoListComponent {
 
   constructor(public snackbar: MatSnackBar, private dialog: MatDialog) {}
 
-  startEditing(todoId: number): void {
-    this.editingToDoId = todoId;
-  }
+  // startEditing(todoId: number): void {
+  //   this.editingToDoId = todoId;
+  // }
 
-  cancelEdit(): void {
-    this.editingToDoId = false;
-  }
+  // cancelEdit(): void {
+  //   this.editingToDoId = false;
+  // }
 
   toggleCompletion(todo: Todo): void {
     todo.completed = !todo.completed;
   }
 
-  saveEdit(todoId: number, updatedTitle: string): void {
-    const todo = this.todos.find((t) => t.id === todoId);
-    if (!todo) return;
+  // saveEdit(todoId: number, updatedTitle: string): void {
+  //   const todo = this.todos.find((t) => t.id === todoId);
+  //   if (!todo) return;
 
-    if (!updatedTitle.trim()) {
-      this.snackbar.open('Title cannot be empty.', 'Close', {
-        duration: 3000,
-      });
-      return;
-    }
+  //   if (!updatedTitle.trim()) {
+  //     this.snackbar.open('Title cannot be empty.', 'Close', {
+  //       duration: 3000,
+  //     });
+  //     return;
+  //   }
 
-    todo.title = updatedTitle;
-    this.editingToDoId = false;
-    this.snackbar.open('To Do item updated successfully', 'Close', {
-      duration: 3000,
-    });
-  }
+  //   todo.title = updatedTitle;
+  //   this.editingToDoId = false;
+  //   this.snackbar.open('To Do item updated successfully', 'Close', {
+  //     duration: 3000,
+  //   });
+  // }
 
   deleteTodo(todoId: number): void {
     this.todos = this.todos.filter((todo) => todo.id !== todoId);
@@ -140,6 +142,20 @@ export class TodoListComponent {
         };
         this.todos.push(newTodo);
         this.snackbar.open('To Do item added', 'Close', { duration: 3000 });
+      }
+    });
+  }
+
+  openEditTodoDialog(todo: any): void {
+    const dialogRef = this.dialog.open(AddTodoDialogComponent, {
+      data: todo,
+      width: '400px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        todo.title = result.title;
+        todo.category = result.category;
+        todo.priority = result.priority;
       }
     });
   }

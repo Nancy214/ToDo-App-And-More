@@ -1,23 +1,32 @@
 <div class="container">
-  <mat-card class="category-card">
+  <mat-card class="outer-card">
     <mat-card-header>
       <mat-card-title>Your Today's To-Do List</mat-card-title>
+      <button
+        mat-raised-button
+        class="add-button"
+        (click)="openAddTodoDialog()"
+      >
+        Add New Item
+      </button>
     </mat-card-header>
     <mat-card-content>
       <mat-list>
         <mat-list-item *ngFor="let todo of todos" style="height: auto">
-          <mat-card [class.completed]="todo.completed">
+          <mat-card [class.completed]="todo.completed" class="inner-card">
             <!-- View Mode -->
             <mat-checkbox
               [(ngModel)]="todo.completed"
               (check)="toggleCompletion(todo)"
-              [disabled]="editingToDoId === todo.id"
             >
             </mat-checkbox>
-            <div *ngIf="editingToDoId !== todo.id" class="todo-view">
+            <div class="todo-view">
               <h6>
-                {{ todo.title }}<br /><span
-                  ><mat-chip>{{ todo.category }}</mat-chip
+                <span [class.done]="todo.completed">{{ todo.title }}</span>
+                <br /><span class="subtitle"
+                  ><mat-chip style="margin-right: 10px">{{
+                    todo.category
+                  }}</mat-chip
                   ><mat-icon
                     [ngStyle]="
                       todo.priority === 'High'
@@ -32,7 +41,26 @@
               </h6>
 
               <div class="actions">
-                <button
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button
+                    mat-menu-item
+                    [disabled]="todo.completed === true"
+                    (click)="openEditTodoDialog(todo)"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    mat-menu-item
+                    [disabled]="todo.completed === true"
+                    (click)="deleteTodo(todo.id)"
+                  >
+                    Delete
+                  </button>
+                </mat-menu>
+                <!-- <button
                   mat-icon-button
                   [disabled]="todo.completed === true"
                   (click)="startEditing(todo.id)"
@@ -45,12 +73,12 @@
                   (click)="deleteTodo(todo.id)"
                 >
                   <mat-icon style="color: #f95959">delete</mat-icon>
-                </button>
+                </button> -->
               </div>
             </div>
 
             <!-- Edit Mode -->
-            <div *ngIf="editingToDoId === todo.id" class="todo-edit">
+            <!-- <div *ngIf="editingToDoId === todo.id" class="todo-edit">
               <mat-form-field appearance="outline">
                 <mat-label>Title</mat-label>
                 <input matInput #titleInput [(ngModel)]="todo.title" />
@@ -71,17 +99,10 @@
                   Cancel
                 </button>
               </div>
-            </div>
+            </div> -->
           </mat-card>
         </mat-list-item>
       </mat-list>
-      <button
-        mat-raised-button
-        class="add-button"
-        (click)="openAddTodoDialog()"
-      >
-        Add New Item
-      </button>
     </mat-card-content>
   </mat-card>
 </div>

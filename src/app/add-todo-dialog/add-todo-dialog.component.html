@@ -1,12 +1,12 @@
-<h2 mat-dialog-title>Add New Item</h2>
+<h2 mat-dialog-title>{{editTodo? 'Edit Item' : 'Add New Item'}}</h2>
 <mat-dialog-content style="padding-top: 5px">
   <mat-form-field appearance="outline">
     <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="newTodoTitle" placeholder="Enter title" />
+    <input matInput [(ngModel)]="title" placeholder="Enter title" />
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Category</mat-label>
-    <mat-select [(ngModel)]="newTodoCategory">
+    <mat-select [(ngModel)]="category">
       <mat-option *ngFor="let category of categories" [value]="category">{{
         category
       }}</mat-option>
@@ -14,7 +14,7 @@
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Priority</mat-label>
-    <mat-select [(ngModel)]="newTodoPriority">
+    <mat-select [(ngModel)]="priority">
       <mat-option *ngFor="let priority of prorities" [value]="priority">{{
         priority
       }}</mat-option>

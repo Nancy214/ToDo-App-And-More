@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,33 +27,38 @@ import { CATEGORIES, PRIORITIES } from '../models/todo';
   styleUrl: './add-todo-dialog.component.scss',
 })
 export class AddTodoDialogComponent {
-  newTodoTitle: string = '';
-  newTodoCategory: string = '';
-  newTodoPriority: string = '';
+  title: string = '';
+  category: string = '';
+  priority: string = '';
 
   categories = CATEGORIES;
   prorities = PRIORITIES;
 
   constructor(
+    
     public dialogRef: MatDialogRef<AddTodoDialogComponent>,
-    public snackbar: MatSnackBar
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public editTodo: any
+  ) {
+    if (editTodo) {
+      this.title = editTodo.title || '';
+      this.category = editTodo.category || '';
+      this.priority = editTodo.priority || '';
+    }
+  }
 
   onCancel(): void {
     this.dialogRef.close();
   }
 
   onSave(): void {
-    if (!this.newTodoTitle.trim()) {
-      this.snackbar.open('Title cannot be empty', 'Close', {
-        duration: 3000,
-      });
+    if (!this.title.trim()) {
+      
       return;
     }
     this.dialogRef.close({
-      title: this.newTodoTitle,
-      category: this.newTodoCategory,
-      priority: this.newTodoPriority,
+      title: this.title,
+      category: this.category,
+      priority: this.priority,
     });
   }
 }

@@ -12,6 +12,14 @@
       }}</mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Priority</mat-label>
+    <mat-select [(ngModel)]="newTodoPriority">
+      <mat-option *ngFor="let priority of prorities" [value]="priority">{{
+        priority
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button

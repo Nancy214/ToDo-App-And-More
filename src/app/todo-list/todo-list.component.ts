@@ -9,8 +9,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
 
-import { CATEGORIES, Todo } from '../models/todo';
+import { CATEGORIES, PRIORITIES, Todo } from '../models/todo';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTodoDialogComponent } from '../add-todo-dialog/add-todo-dialog.component';
@@ -28,6 +29,7 @@ import { AddTodoDialogComponent } from '../add-todo-dialog/add-todo-dialog.compo
     MatCardModule,
     MatSnackBarModule,
     MatCheckboxModule,
+    MatChipsModule,
   ],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss',
@@ -39,40 +41,47 @@ export class TodoListComponent {
       title: 'Write 5 pages',
       category: 'Work',
       completed: false,
+      priority: 'High',
     },
     {
       id: 2,
       title: 'Proofread documents',
       category: 'Work',
       completed: false,
+      priority: 'Medium',
     },
     {
       id: 3,
       title: 'Walk 5 miles',
       category: 'Personal',
       completed: false,
+      priority: 'Low',
     },
     {
       id: 4,
       title: 'Do skincare',
       category: 'Personal',
       completed: false,
+      priority: 'High',
     },
     {
       id: 5,
       title: 'Buy groceries',
       category: 'Home',
       completed: false,
+      priority: 'Medium',
     },
     {
       id: 6,
       title: 'Change towels',
       category: 'Home',
       completed: false,
+      priority: 'Low',
     },
   ];
 
   categories = CATEGORIES;
+  priorities = PRIORITIES;
 
   editingToDoId: number | boolean = false;
 
@@ -127,6 +136,7 @@ export class TodoListComponent {
           title: result.title,
           category: result.category,
           completed: false,
+          priority: result.priority,
         };
         this.todos.push(newTodo);
         this.snackbar.open('To Do item added', 'Close', { duration: 3000 });

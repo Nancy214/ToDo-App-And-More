@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
-import { CATEGORIES } from '../models/todo';
+import { CATEGORIES, PRIORITIES } from '../models/todo';
 
 @Component({
   selector: 'app-add-todo-dialog',
@@ -29,8 +29,10 @@ import { CATEGORIES } from '../models/todo';
 export class AddTodoDialogComponent {
   newTodoTitle: string = '';
   newTodoCategory: string = '';
+  newTodoPriority: string = '';
 
   categories = CATEGORIES;
+  prorities = PRIORITIES;
 
   constructor(
     public dialogRef: MatDialogRef<AddTodoDialogComponent>,
@@ -42,8 +44,8 @@ export class AddTodoDialogComponent {
   }
 
   onSave(): void {
-    if (!this.newTodoTitle.trim() || !this.newTodoCategory) {
-      this.snackbar.open('Please fill in all fields', 'Close', {
+    if (!this.newTodoTitle.trim()) {
+      this.snackbar.open('Title cannot be empty', 'Close', {
         duration: 3000,
       });
       return;
@@ -51,6 +53,7 @@ export class AddTodoDialogComponent {
     this.dialogRef.close({
       title: this.newTodoTitle,
       category: this.newTodoCategory,
+      priority: this.newTodoPriority,
     });
   }
 }

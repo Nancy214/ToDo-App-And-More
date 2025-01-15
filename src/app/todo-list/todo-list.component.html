@@ -1,78 +1,89 @@
 <div class="container">
-  <h3>Your Today's To-Do List</h3>
-
-  <div class="categories">
-    <mat-card *ngFor="let category of categories" class="category-card">
-      <mat-card-header>
-        <mat-card-title>{{ category }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-list>
-          <mat-list-item *ngFor="let todo of todos" style="height: auto">
-            <mat-card
-              [class.completed]="todo.completed"
-              *ngIf="todo.category === category"
+  <mat-card class="category-card">
+    <mat-card-header>
+      <mat-card-title>Your Today's To-Do List</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let todo of todos" style="height: auto">
+          <mat-card [class.completed]="todo.completed">
+            <!-- View Mode -->
+            <mat-checkbox
+              [(ngModel)]="todo.completed"
+              (check)="toggleCompletion(todo)"
+              [disabled]="editingToDoId === todo.id"
             >
-              <!-- View Mode -->
-              <mat-checkbox
-                [(ngModel)]="todo.completed"
-                (check)="toggleCompletion(todo)"
-                [disabled]="editingToDoId === todo.id"
-              >
-              </mat-checkbox>
-              <div *ngIf="editingToDoId !== todo.id" class="todo-view">
-                <p>{{ todo.title }}</p>
-                <div class="actions">
-                  <button
-                    mat-icon-button
-                    color="primary"
-                    [disabled]="todo.completed === true"
-                    (click)="startEditing(todo.id)"
-                  >
-                    <mat-icon style="color: #53a8b6">edit</mat-icon>
-                  </button>
-                  <button
-                    mat-icon-button
-                    [disabled]="todo.completed === true"
-                    (click)="deleteTodo(todo.id)"
-                  >
-                    <mat-icon style="color: #f95959">delete</mat-icon>
-                  </button>
-                </div>
-              </div>
+            </mat-checkbox>
+            <div *ngIf="editingToDoId !== todo.id" class="todo-view">
+              <h6>
+                {{ todo.title }}<br /><span
+                  ><mat-chip>{{ todo.category }}</mat-chip
+                  ><mat-icon
+                    [ngStyle]="
+                      todo.priority === 'High'
+                        ? { color: '#f95959' }
+                        : todo.priority === 'Medium'
+                        ? { color: '#ffc93c' }
+                        : { color: '#42b883' }
+                    "
+                    >flag</mat-icon
+                  ></span
+                >
+              </h6>
 
-              <!-- Edit Mode -->
-              <div *ngIf="editingToDoId === todo.id" class="todo-edit">
-                <mat-form-field appearance="outline">
-                  <mat-label>Title</mat-label>
-                  <input matInput #titleInput [(ngModel)]="todo.title" />
-                </mat-form-field>
-                <div class="actions">
-                  <button
-                    mat-raised-button
-                    style="background-color: #53a8b6; color: #ffffff"
-                    (click)="saveEdit(todo.id, titleInput.value)"
-                  >
-                    Save
-                  </button>
-                  <button
-                    mat-raised-button
-                    style="background-color: #455d7a; color: #ffffff"
-                    (click)="cancelEdit()"
-                  >
-                    Cancel
-                  </button>
-                </div>
+              <div class="actions">
+                <button
+                  mat-icon-button
+                  [disabled]="todo.completed === true"
+                  (click)="startEditing(todo.id)"
+                >
+                  <mat-icon style="color: #53a8b6">edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  [disabled]="todo.completed === true"
+                  (click)="deleteTodo(todo.id)"
+                >
+                  <mat-icon style="color: #f95959">delete</mat-icon>
+                </button>
               </div>
-            </mat-card>
-          </mat-list-item>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
-  </div>
+            </div>
 
-  <!-- Add Mode -->
-  <button mat-raised-button class="add-button" (click)="openAddTodoDialog()">
-    Add New Item
-  </button>
+            <!-- Edit Mode -->
+            <div *ngIf="editingToDoId === todo.id" class="todo-edit">
+              <mat-form-field appearance="outline">
+                <mat-label>Title</mat-label>
+                <input matInput #titleInput [(ngModel)]="todo.title" />
+              </mat-form-field>
+              <div class="actions" style="gap: 10px">
+                <button
+                  mat-raised-button
+                  style="background-color: #53a8b6; color: #ffffff"
+                  (click)="saveEdit(todo.id, titleInput.value)"
+                >
+                  Save
+                </button>
+                <button
+                  mat-raised-button
+                  style="background-color: #455d7a; color: #ffffff"
+                  (click)="cancelEdit()"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </mat-card>
+        </mat-list-item>
+      </mat-list>
+      <button
+        mat-raised-button
+        class="add-button"
+        (click)="openAddTodoDialog()"
+      >
+        Add New Item
+      </button>
+    </mat-card-content>
+  </mat-card>
 </div>
+
+<!-- Add Mode -->

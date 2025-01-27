@@ -21,12 +21,61 @@
   display: flex;
   gap: 16px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .filter-field {
   width: 200px;
   margin-bottom: 0;
   margin-top: 20px;
+}
+
+.search-field {
+  width: 300px;
+  margin: 20px 10px 0 0;
+  
+  .mat-mdc-form-field-icon-prefix {
+    color: #95a5a6;
+  }
+  
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      border-radius: 24px !important;
+      background-color: white;
+      padding: 0 !important;
+    }
+
+    .mat-mdc-form-field-flex {
+      margin-top: 0;
+      padding: 0 10px !important;
+      height: 50px;
+    }
+
+    .mdc-notched-outline {
+      border-width: 1px !important;
+    }
+
+    .mdc-notched-outline__leading {
+      border-radius: 24px 0 0 24px !important;
+      border-color: #e0e0e0 !important;
+      flex-grow: 1;
+    }
+
+    .mdc-notched-outline__trailing {
+      border-radius: 0 24px 24px 0 !important;
+      border-color: #e0e0e0 !important;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding: 13px 0 !important;
+      width: auto;
+    }
+
+    // Remove the label gap
+    .mdc-notched-outline__notch {
+      border-top: none;
+    }
+  }
 }
 
 .outer-card {
@@ -121,9 +170,9 @@ h6 {
 
 .priority-icon {
   font-size: 16px;
-  height: 16px;
-  width: 16px;
-  margin-right: 4px;
+  height: 13px;
+  width: 15px;
+  margin-right: 2px;
 }
 
 .add-button {

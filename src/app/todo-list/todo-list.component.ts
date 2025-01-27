@@ -89,13 +89,32 @@ export class TodoListComponent {
 
   editingToDoId: number | boolean = false;
   selectedCategory: string = '';
+  searchText: string = '';
+  private allTodos: Todo[] = [];
 
-  constructor(public snackbar: MatSnackBar, private dialog: MatDialog) {}
+  constructor(public snackbar: MatSnackBar, private dialog: MatDialog) {
+    this.allTodos = [...this.todos];
+  }
 
-  get filteredTodos(): Todo[] {
-    return this.selectedCategory
-      ? this.todos.filter(todo => todo.category === this.selectedCategory)
-      : this.todos;
+/*   get filteredTodos(): Todo[] {
+    return this.todos.filter(todo => {
+      const matchesSearch = this.searchText ? 
+        todo.title.toLowerCase().includes(this.searchText.toLowerCase()) : true;
+      const matchesCategory = this.selectedCategory ? 
+        todo.category === this.selectedCategory : true;
+      return matchesSearch && matchesCategory;
+    });
+  } */
+
+  onSearch(): void {
+    if (!this.searchText) {
+      this.todos = [...this.allTodos];
+      return;
+    }
+
+    this.todos = this.allTodos.filter(todo =>
+      todo.title.toLowerCase().includes(this.searchText.toLowerCase())
+    );
   }
 
   toggleCompletion(todo: Todo): void {
@@ -111,6 +130,7 @@ export class TodoListComponent {
 
   deleteTodo(todoId: number): void {
     this.todos = this.todos.filter((todo) => todo.id !== todoId);
+    this.allTodos = this.allTodos.filter((todo) => todo.id !== todoId);
     this.snackbar.open('To Do item deleted', 'Close', {
       duration: 3000,
     });
@@ -131,6 +151,7 @@ export class TodoListComponent {
           priority: result.priority,
         };
         this.todos.push(newTodo);
+        this.allTodos.push(newTodo);
         this.snackbar.open('To Do item added', 'Close', { duration: 3000 });
       }
     });

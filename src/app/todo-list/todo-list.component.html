@@ -4,14 +4,9 @@
       <div class="header-content">
         <mat-card-title>Your Today's To-Do List</mat-card-title>
         <div class="header-actions">
-          <mat-form-field appearance="outline" class="filter-field">
-            <mat-label>Filter by Category</mat-label>
-            <mat-select [(ngModel)]="selectedCategory">
-              <mat-option [value]="''">All</mat-option>
-              <mat-option *ngFor="let cat of categories" [value]="cat">
-                {{cat}}
-              </mat-option>
-            </mat-select>
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput [(ngModel)]="searchText" placeholder="Search tasks" (ngModelChange)="onSearch()">
           </mat-form-field>
           <button mat-raised-button class="add-button" (click)="openAddTodoDialog()">
             <mat-icon>add</mat-icon>
@@ -22,14 +17,14 @@
     </mat-card-header>
     
     <mat-card-content>
-      <div class="empty-state" *ngIf="filteredTodos.length === 0">
+      <div class="empty-state" *ngIf="todos.length === 0">
         <mat-icon class="empty-icon">assignment</mat-icon>
         <h3>No tasks found</h3>
         <p>Add a new task to get started!</p>
       </div>
 
       <mat-list>
-        <mat-list-item *ngFor="let todo of filteredTodos" style="height: auto">
+        <mat-list-item *ngFor="let todo of todos" style="height: auto">
           <mat-card [class.completed]="todo.completed" class="inner-card">
             <div class="todo-view">
               <div class="todo-content">
@@ -37,7 +32,7 @@
                   <mat-checkbox
                     [checked]="todo.completed"
                     (change)="toggleCompletion(todo)"
-                    [color]="'primary'"
+                    [color]="'primary'"cd 
                   >
                   </mat-checkbox>
                   <h6>
@@ -50,7 +45,7 @@
                       {{todo.category}}
                     </mat-chip>
                     <mat-chip [class]="'priority-' + todo.priority.toLowerCase()">
-                      <mat-icon class="priority-icon">flag</mat-icon>
+                      <mat-icon class="priority-icon">fiber_manual_record </mat-icon>
                       {{todo.priority}}
                     </mat-chip>
                   </mat-chip-set>

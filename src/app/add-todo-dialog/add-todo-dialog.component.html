@@ -1,39 +1,34 @@
 <h2 mat-dialog-title>{{editTodo? 'Edit Item' : 'Add New Item'}}</h2>
-<mat-dialog-content style="padding-top: 5px">
+<mat-dialog-content style="padding-top: 8px">
   <mat-form-field appearance="outline">
     <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="title" placeholder="Enter title" />
+    <input matInput [(ngModel)]="title" placeholder="What needs to be done?" />
   </mat-form-field>
+  
   <mat-form-field appearance="outline">
     <mat-label>Category</mat-label>
     <mat-select [(ngModel)]="category">
-      <mat-option *ngFor="let category of categories" [value]="category">{{
-        category
-      }}</mat-option>
+      <mat-option *ngFor="let category of categories" [value]="category">
+        {{category}}
+      </mat-option>
     </mat-select>
   </mat-form-field>
+  
   <mat-form-field appearance="outline">
     <mat-label>Priority</mat-label>
     <mat-select [(ngModel)]="priority">
-      <mat-option *ngFor="let priority of prorities" [value]="priority">{{
-        priority
-      }}</mat-option>
+      <mat-option *ngFor="let priority of prorities" [value]="priority">
+        {{priority}}
+      </mat-option>
     </mat-select>
   </mat-form-field>
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
-  <button
-    mat-raised-button
-    style="background-color: #53a8b6; color: #ffffff"
-    (click)="onSave()"
-  >
-    Save
+  <button mat-raised-button (click)="onSave()" style="background-color: #53a8b6; color: #ffffff">
+    {{editTodo ? 'Update' : 'Add Task'}}
   </button>
-  <button
-    mat-raised-button
-    style="background-color: #455d7a; color: #ffffff"
-    (click)="onCancel()"
-  >
+  <button mat-raised-button (click)="onCancel()" style="background-color: #455d7a; color: #ffffff">
     Cancel
   </button>
 </mat-dialog-actions>

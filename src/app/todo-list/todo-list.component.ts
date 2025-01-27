@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 
 import { CATEGORIES, PRIORITIES, Todo } from '../models/todo';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -32,6 +33,7 @@ import { AddTodoDialogComponent } from '../add-todo-dialog/add-todo-dialog.compo
     MatCheckboxModule,
     MatChipsModule,
     MatMenuModule,
+    MatSelectModule,
   ],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss',
@@ -77,7 +79,7 @@ export class TodoListComponent {
       id: 6,
       title: 'Change towels',
       category: 'Home',
-      completed: false,
+      completed: true,
       priority: 'Low',
     },
   ];
@@ -86,38 +88,26 @@ export class TodoListComponent {
   priorities = PRIORITIES;
 
   editingToDoId: number | boolean = false;
+  selectedCategory: string = '';
 
   constructor(public snackbar: MatSnackBar, private dialog: MatDialog) {}
 
-  // startEditing(todoId: number): void {
-  //   this.editingToDoId = todoId;
-  // }
-
-  // cancelEdit(): void {
-  //   this.editingToDoId = false;
-  // }
-
-  toggleCompletion(todo: Todo): void {
-    todo.completed = !todo.completed;
+  get filteredTodos(): Todo[] {
+    return this.selectedCategory
+      ? this.todos.filter(todo => todo.category === this.selectedCategory)
+      : this.todos;
   }
 
-  // saveEdit(todoId: number, updatedTitle: string): void {
-  //   const todo = this.todos.find((t) => t.id === todoId);
-  //   if (!todo) return;
-
-  //   if (!updatedTitle.trim()) {
-  //     this.snackbar.open('Title cannot be empty.', 'Close', {
-  //       duration: 3000,
-  //     });
-  //     return;
-  //   }
-
-  //   todo.title = updatedTitle;
-  //   this.editingToDoId = false;
-  //   this.snackbar.open('To Do item updated successfully', 'Close', {
-  //     duration: 3000,
-  //   });
-  // }
+  toggleCompletion(todo: Todo): void {
+    const index = this.todos.findIndex(t => t.id === todo.id);
+    this.todos[index] = { ...todo, completed: !todo.completed };
+    
+    if (this.todos[index].completed) {
+      this.snackbar.open('Task completed! 🎉', 'Close', {
+        duration: 3000,
+      });
+    }
+  }
 
   deleteTodo(todoId: number): void {
     this.todos = this.todos.filter((todo) => todo.id !== todoId);

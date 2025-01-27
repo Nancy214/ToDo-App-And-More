@@ -1,105 +1,78 @@
 <div class="container">
   <mat-card class="outer-card">
     <mat-card-header>
-      <mat-card-title>Your Today's To-Do List</mat-card-title>
-      <button
-        mat-raised-button
-        class="add-button"
-        (click)="openAddTodoDialog()"
-      >
-        Add New Item
-      </button>
+      <div class="header-content">
+        <mat-card-title>Your Today's To-Do List</mat-card-title>
+        <div class="header-actions">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Filter by Category</mat-label>
+            <mat-select [(ngModel)]="selectedCategory">
+              <mat-option [value]="''">All</mat-option>
+              <mat-option *ngFor="let cat of categories" [value]="cat">
+                {{cat}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button class="add-button" (click)="openAddTodoDialog()">
+            <mat-icon>add</mat-icon>
+            Add New Item
+          </button>
+        </div>
+      </div>
     </mat-card-header>
+    
     <mat-card-content>
+      <div class="empty-state" *ngIf="filteredTodos.length === 0">
+        <mat-icon class="empty-icon">assignment</mat-icon>
+        <h3>No tasks found</h3>
+        <p>Add a new task to get started!</p>
+      </div>
+
       <mat-list>
-        <mat-list-item *ngFor="let todo of todos" style="height: auto">
+        <mat-list-item *ngFor="let todo of filteredTodos" style="height: auto">
           <mat-card [class.completed]="todo.completed" class="inner-card">
-            <!-- View Mode -->
-            <mat-checkbox
-              [(ngModel)]="todo.completed"
-              (check)="toggleCompletion(todo)"
-            >
-            </mat-checkbox>
             <div class="todo-view">
-              <h6>
-                <span [class.done]="todo.completed">{{ todo.title }}</span>
-                <br /><span class="subtitle"
-                  ><mat-chip style="margin-right: 10px">{{
-                    todo.category
-                  }}</mat-chip
-                  ><mat-icon
-                    [ngStyle]="
-                      todo.priority === 'High'
-                        ? { color: '#f95959' }
-                        : todo.priority === 'Medium'
-                        ? { color: '#ffc93c' }
-                        : { color: '#42b883' }
-                    "
-                    >flag</mat-icon
-                  ></span
-                >
-              </h6>
+              <div class="todo-content">
+                <div class="title-row">
+                  <mat-checkbox
+                    [checked]="todo.completed"
+                    (change)="toggleCompletion(todo)"
+                    [color]="'primary'"
+                  >
+                  </mat-checkbox>
+                  <h6>
+                    <span [class.done]="todo.completed">{{ todo.title }}</span>
+                  </h6>
+                </div>
+                <div class="todo-metadata">
+                  <mat-chip-set>
+                    <mat-chip [class]="todo.category.toLowerCase()">
+                      {{todo.category}}
+                    </mat-chip>
+                    <mat-chip [class]="'priority-' + todo.priority.toLowerCase()">
+                      <mat-icon class="priority-icon">flag</mat-icon>
+                      {{todo.priority}}
+                    </mat-chip>
+                  </mat-chip-set>
+                </div>
+              </div>
 
               <div class="actions">
-                <button mat-icon-button [matMenuTriggerFor]="menu">
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="action-button">
                   <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                  <button
-                    mat-menu-item
-                    [disabled]="todo.completed === true"
-                    (click)="openEditTodoDialog(todo)"
-                  >
-                    Edit
+                  <button mat-menu-item [disabled]="todo.completed" (click)="openEditTodoDialog(todo)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
                   </button>
-                  <button
-                    mat-menu-item
-                    [disabled]="todo.completed === true"
-                    (click)="deleteTodo(todo.id)"
-                  >
-                    Delete
+                  <button mat-menu-item [disabled]="todo.completed" (click)="deleteTodo(todo.id)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
                   </button>
                 </mat-menu>
-                <!-- <button
-                  mat-icon-button
-                  [disabled]="todo.completed === true"
-                  (click)="startEditing(todo.id)"
-                >
-                  <mat-icon style="color: #53a8b6">edit</mat-icon>
-                </button>
-                <button
-                  mat-icon-button
-                  [disabled]="todo.completed === true"
-                  (click)="deleteTodo(todo.id)"
-                >
-                  <mat-icon style="color: #f95959">delete</mat-icon>
-                </button> -->
               </div>
             </div>
-
-            <!-- Edit Mode -->
-            <!-- <div *ngIf="editingToDoId === todo.id" class="todo-edit">
-              <mat-form-field appearance="outline">
-                <mat-label>Title</mat-label>
-                <input matInput #titleInput [(ngModel)]="todo.title" />
-              </mat-form-field>
-              <div class="actions" style="gap: 10px">
-                <button
-                  mat-raised-button
-                  style="background-color: #53a8b6; color: #ffffff"
-                  (click)="saveEdit(todo.id, titleInput.value)"
-                >
-                  Save
-                </button>
-                <button
-                  mat-raised-button
-                  style="background-color: #455d7a; color: #ffffff"
-                  (click)="cancelEdit()"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div> -->
           </mat-card>
         </mat-list-item>
       </mat-list>

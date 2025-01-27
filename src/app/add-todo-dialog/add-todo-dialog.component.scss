@@ -1,9 +1,61 @@
+:host {
+  display: block;
+  padding: 24px;
+}
+
+h2 {
+  color: #2c3e50;
+  margin: 0 0 24px 0;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.5px;
+}
+
 mat-form-field {
   width: 100%;
-  margin-bottom: 5px;
-  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+mat-dialog-actions {
+  padding: 24px 0 0 0;
+  gap: 16px;
 }
 
 button {
-  margin-left: 10px;
+  min-width: 120px;
+  border-radius: 24px !important;
+  
+  &[mat-raised-button] {
+    padding: 0 28px;
+    height: 44px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.2s ease;
+    
+    &:first-child {
+      box-shadow: 0 4px 12px rgba(83, 168, 182, 0.2);
+      &:hover {
+        box-shadow: 0 6px 16px rgba(83, 168, 182, 0.3);
+      }
+    }
+    
+    &:last-child {
+      box-shadow: 0 4px 12px rgba(69, 93, 122, 0.2);
+      &:hover {
+        box-shadow: 0 6px 16px rgba(69, 93, 122, 0.3);
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline {
+    border-radius: 12px;
+  }
+  
+  .mat-mdc-form-field {
+    .mat-mdc-form-field-flex {
+      border-radius: 12px;
+    }
+  }
 }

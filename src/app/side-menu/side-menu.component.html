@@ -1,0 +1,30 @@
+<mat-drawer-container class="drawer-container">
+  <mat-drawer mode="side" opened>
+    <mat-card class="side-menu">
+      <mat-card-content>
+        <div class="menu-header">
+          <div class="user-info">
+            <div class="avatar">N</div>
+            <div class="user-details">
+              <h3>Nancy</h3>
+              <p>Personal Workspace</p>
+            </div>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <mat-nav-list>
+         <!--  <a mat-list-item *ngFor="let item of menuItems">
+            <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+            <span matListItemTitle>{{item.label}}</span>
+          </a> -->
+        </mat-nav-list>
+      </mat-card-content>
+    </mat-card>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-header></app-header>
+    <app-todo-list></app-todo-list>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -14,17 +14,64 @@
 
         <mat-divider></mat-divider>
 
-        <mat-nav-list>
-         <!--  <a mat-list-item *ngFor="let item of menuItems">
-            <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
-            <span matListItemTitle>{{item.label}}</span>
-          </a> -->
-        </mat-nav-list>
+        <div class="filters-section">
+          <div class="filters-header">
+            <mat-icon>filter_list</mat-icon>
+            <h3>Filters</h3>
+          </div>
+
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Status</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="filter-options">
+                <mat-checkbox [checked]="filters.status.all" 
+                  (change)="filterTasks({source: $event, filterType: 'status', value: 'all'})">
+                  All
+                </mat-checkbox>
+                <mat-checkbox [checked]="filters.status.completed" 
+                  (change)="filterTasks({source: $event, filterType: 'status', value: 'completed'})">
+                  Completed
+                </mat-checkbox>
+                <mat-checkbox [checked]="filters.status.active" 
+                  (change)="filterTasks({source: $event, filterType: 'status', value: 'active'})">
+                  Active
+                </mat-checkbox>
+                <button mat-button (click)="clearAll()">Clear All</button>
+              </div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Priority</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="filter-options">
+                <mat-checkbox [checked]="filters.priority.high" (change)="filterTasks($event)">High</mat-checkbox>
+                <mat-checkbox [checked]="filters.priority.medium" (change)="filterTasks($event)">Medium</mat-checkbox>
+                <mat-checkbox [checked]="filters.priority.low" (change)="filterTasks($event)">Low</mat-checkbox>
+                <button mat-button (click)="clearAll()">Clear All</button>   
+              </div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Category</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="filter-options">
+                <mat-checkbox [checked]="filters.category.work" (change)="filterTasks($event)">Work</mat-checkbox>
+                <mat-checkbox [checked]="filters.category.personal" (change)="filterTasks($event)">Personal</mat-checkbox>
+                <mat-checkbox [checked]="filters.category.home" (change)="filterTasks($event)">Home</mat-checkbox>
+                <button mat-button>Clear All</button>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
       </mat-card-content>
     </mat-card>
   </mat-drawer>
   <mat-drawer-content>
     <app-header></app-header>
-    <app-todo-list></app-todo-list>
+    <app-todo-list [filteredTodos]="filteredTodos"></app-todo-list>
   </mat-drawer-content>
 </mat-drawer-container>

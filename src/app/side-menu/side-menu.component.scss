@@ -44,7 +44,7 @@ mat-drawer {
     h3 {
       margin: 0;
       font-size: 1rem;
-      font-weight: 500;
+      font-weight: 400;
       color: #2c3e50;
     }
 
@@ -59,33 +59,103 @@ mat-drawer {
 mat-nav-list {
   padding-top: 8px;
 
-  a {
+  .filterList {
     margin: 4px 8px;
     border-radius: 8px;
     height: 44px !important;
-    color: #2c3e50;
+    //color: #2c3e50;
+    display: flex;
+    align-items: center;
 
-    &:hover {
-      background-color: rgba(83, 168, 182, 0.08);
-    }
+    h3 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #2c3e50;
+      }
 
     mat-icon {
-      color: #95a5a6;
       margin-right: 12px;
     }
   }
 }
 
-::ng-deep {
+/* ::ng-deep {
   .mdc-list-item__content {
     .mdc-list-item__primary-text {
       font-size: 0.9375rem !important;
     }
   }
-}
+} */
 
 mat-drawer-content {
   padding: 20px;
   background-color: #53a8b6;
   height: 100vh;
+}
+
+.filters-section {
+  padding: 16px 16px 16px 0;
+}
+
+.filters-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 0 8px;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #2c3e50;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+::ng-deep {
+  .mat-expansion-panel {
+    background: transparent !important;
+    box-shadow: none !important;
+    margin: 4px 0 4px 34px !important;
+
+    .mat-expansion-panel-header {
+      padding: 0 8px;
+      height: 40px !important;
+
+      &:hover {
+        background: rgba(83, 168, 182, 0.04) !important;
+      }
+    }
+
+    .mat-expansion-panel-header-title {
+      font-size: 0.9rem;
+      color: #2c3e50;
+      font-weight: 400;
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0 8px 16px !important;
+    }
+  }
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 8px;
+
+  .mat-checkbox {
+    font-size: 0.9rem;
+    color: #2c3e50;
+  }
 }

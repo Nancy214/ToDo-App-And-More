@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -39,6 +39,12 @@ import { AddTodoDialogComponent } from '../add-todo-dialog/add-todo-dialog.compo
   styleUrl: './todo-list.component.scss',
 })
 export class TodoListComponent {
+  @Input() set filteredTodos(todos: Todo[]) {
+    if (todos && todos.length > 0) {
+      this.todos = todos;
+    }
+  }
+
   todos: Todo[] = [
     {
       id: 1,

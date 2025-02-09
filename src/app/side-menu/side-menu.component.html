@@ -26,19 +26,33 @@
                 <mat-panel-title>Status</mat-panel-title>
               </mat-expansion-panel-header>
               <div class="filter-options">
-                <mat-checkbox [checked]="filters.status.all" 
-                  (change)="filterTasks({source: $event, filterType: 'status', value: 'all'})">
-                  All
-                </mat-checkbox>
-                <mat-checkbox [checked]="filters.status.completed" 
-                  (change)="filterTasks({source: $event, filterType: 'status', value: 'completed'})">
+                <mat-checkbox
+                  [checked]="filters.status.completed"
+                  (change)="
+                    filterTasks({
+                      source: $event,
+                      filterType: 'status',
+                      value: 'completed'
+                    })
+                  "
+                >
                   Completed
                 </mat-checkbox>
-                <mat-checkbox [checked]="filters.status.active" 
-                  (change)="filterTasks({source: $event, filterType: 'status', value: 'active'})">
+                <mat-checkbox
+                  [checked]="filters.status.active"
+                  (change)="
+                    filterTasks({
+                      source: $event,
+                      filterType: 'status',
+                      value: 'active'
+                    })
+                  "
+                >
                   Active
                 </mat-checkbox>
-                <button mat-button (click)="clearAll()">Clear All</button>
+                <button mat-button (click)="clearAll('status')">
+                  Clear All
+                </button>
               </div>
             </mat-expansion-panel>
 
@@ -47,10 +61,45 @@
                 <mat-panel-title>Priority</mat-panel-title>
               </mat-expansion-panel-header>
               <div class="filter-options">
-                <mat-checkbox [checked]="filters.priority.high" (change)="filterTasks($event)">High</mat-checkbox>
-                <mat-checkbox [checked]="filters.priority.medium" (change)="filterTasks($event)">Medium</mat-checkbox>
-                <mat-checkbox [checked]="filters.priority.low" (change)="filterTasks($event)">Low</mat-checkbox>
-                <button mat-button (click)="clearAll()">Clear All</button>   
+                <mat-checkbox
+                  [checked]="filters.priority.high"
+                  (change)="
+                    filterTasks({
+                      source: $event,
+                      filterType: 'priority',
+                      value: 'high'
+                    })
+                  "
+                >
+                  High
+                </mat-checkbox>
+                <mat-checkbox
+                  [checked]="filters.priority.medium"
+                  (change)="
+                    filterTasks({
+                      source: $event,
+                      filterType: 'priority',
+                      value: 'medium'
+                    })
+                  "
+                >
+                  Medium
+                </mat-checkbox>
+                <mat-checkbox
+                  [checked]="filters.priority.low"
+                  (change)="
+                    filterTasks({
+                      source: $event,
+                      filterType: 'priority',
+                      value: 'low'
+                    })
+                  "
+                >
+                  Low
+                </mat-checkbox>
+                <button mat-button (click)="clearAll('priority')">
+                  Clear All
+                </button>
               </div>
             </mat-expansion-panel>
 
@@ -59,10 +108,45 @@
                 <mat-panel-title>Category</mat-panel-title>
               </mat-expansion-panel-header>
               <div class="filter-options">
-                <mat-checkbox [checked]="filters.category.work" (change)="filterTasks($event)">Work</mat-checkbox>
-                <mat-checkbox [checked]="filters.category.personal" (change)="filterTasks($event)">Personal</mat-checkbox>
-                <mat-checkbox [checked]="filters.category.home" (change)="filterTasks($event)">Home</mat-checkbox>
-                <button mat-button>Clear All</button>
+                <mat-checkbox
+                  [checked]="filters.category.work"
+                  (change)="
+                    filterTasks({
+                      source: $event,
+                      filterType: 'category',
+                      value: 'work'
+                    })
+                  "
+                >
+                  Work
+                </mat-checkbox>
+                <mat-checkbox
+                  [checked]="filters.category.personal"
+                  (change)="
+                    filterTasks({
+                      source: $event,
+                      filterType: 'category',
+                      value: 'personal'
+                    })
+                  "
+                >
+                  Personal
+                </mat-checkbox>
+                <mat-checkbox
+                  [checked]="filters.category.home"
+                  (change)="
+                    filterTasks({
+                      source: $event,
+                      filterType: 'category',
+                      value: 'home'
+                    })
+                  "
+                >
+                  Home
+                </mat-checkbox>
+                <button mat-button (click)="clearAll('category')">
+                  Clear All
+                </button>
               </div>
             </mat-expansion-panel>
           </mat-accordion>

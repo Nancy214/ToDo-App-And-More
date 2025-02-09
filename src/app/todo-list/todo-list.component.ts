@@ -40,55 +40,14 @@ import { AddTodoDialogComponent } from '../add-todo-dialog/add-todo-dialog.compo
 })
 export class TodoListComponent {
   @Input() set filteredTodos(todos: Todo[]) {
-    if (todos && todos.length > 0) {
+    if (todos) {
       this.todos = todos;
+      this.allTodos = todos;
     }
   }
 
-  todos: Todo[] = [
-    {
-      id: 1,
-      title: 'Write 5 pages',
-      category: 'Work',
-      completed: false,
-      priority: 'High',
-    },
-    {
-      id: 2,
-      title: 'Proofread documents',
-      category: 'Work',
-      completed: false,
-      priority: 'Medium',
-    },
-    {
-      id: 3,
-      title: 'Walk 5 miles',
-      category: 'Personal',
-      completed: false,
-      priority: 'Low',
-    },
-    {
-      id: 4,
-      title: 'Do skincare',
-      category: 'Personal',
-      completed: false,
-      priority: 'High',
-    },
-    {
-      id: 5,
-      title: 'Buy groceries',
-      category: 'Home',
-      completed: false,
-      priority: 'Medium',
-    },
-    {
-      id: 6,
-      title: 'Change towels',
-      category: 'Home',
-      completed: true,
-      priority: 'Low',
-    },
-  ];
+  todos: Todo[] = [];
+  private allTodos: Todo[] = [];
 
   categories = CATEGORIES;
   priorities = PRIORITIES;
@@ -96,21 +55,8 @@ export class TodoListComponent {
   editingToDoId: number | boolean = false;
   selectedCategory: string = '';
   searchText: string = '';
-  private allTodos: Todo[] = [];
 
-  constructor(public snackbar: MatSnackBar, private dialog: MatDialog) {
-    this.allTodos = [...this.todos];
-  }
-
-/*   get filteredTodos(): Todo[] {
-    return this.todos.filter(todo => {
-      const matchesSearch = this.searchText ? 
-        todo.title.toLowerCase().includes(this.searchText.toLowerCase()) : true;
-      const matchesCategory = this.selectedCategory ? 
-        todo.category === this.selectedCategory : true;
-      return matchesSearch && matchesCategory;
-    });
-  } */
+  constructor(public snackbar: MatSnackBar, private dialog: MatDialog) {}
 
   onSearch(): void {
     if (!this.searchText) {
@@ -118,15 +64,15 @@ export class TodoListComponent {
       return;
     }
 
-    this.todos = this.allTodos.filter(todo =>
+    this.todos = this.allTodos.filter((todo) =>
       todo.title.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 
   toggleCompletion(todo: Todo): void {
-    const index = this.todos.findIndex(t => t.id === todo.id);
+    const index = this.todos.findIndex((t) => t.id === todo.id);
     this.todos[index] = { ...todo, completed: !todo.completed };
-    
+
     if (this.todos[index].completed) {
       this.snackbar.open('Task completed! 🎉', 'Close', {
         duration: 3000,

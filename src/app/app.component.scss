@@ -6,8 +6,12 @@ h1 {
 }
 
 .app-container {
-  min-height: 100vh;
-  background-color: #f8f9fa;
+  height: 100vh;
+  overflow: hidden;
+  
+  &.scrollable {
+    overflow-y: auto;
+  }
 }
 
 .main-content {

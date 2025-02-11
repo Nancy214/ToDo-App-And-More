@@ -29,11 +29,11 @@
 .search-field {
   width: 300px;
   margin: 20px 10px 0 0;
-  
+
   .mat-mdc-form-field-icon-prefix {
     color: #95a5a6;
   }
-  
+
   ::ng-deep {
     .mat-mdc-text-field-wrapper {
       border-radius: 24px !important;
@@ -79,7 +79,8 @@
   border-radius: 12px;
   background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  min-height: 80vh;
+  min-height: fit-content;
+  margin-bottom: 40px;
 }
 
 mat-card-title {
@@ -155,14 +156,32 @@ h6 {
 }
 
 // Category chips
-.mat-mdc-standard-chip.work { background-color: #e3f2fd !important; --mdc-chip-label-text-color: #1976d2 !important; }
-.mat-mdc-standard-chip.personal { background-color: #f3e5f5 !important; --mdc-chip-label-text-color: #9c27b0 !important; }
-.mat-mdc-standard-chip.home { background-color: #eceff1 !important; --mdc-chip-label-text-color: #546e7a !important; }
+.mat-mdc-standard-chip.work {
+  background-color: #e3f2fd !important;
+  --mdc-chip-label-text-color: #1976d2 !important;
+}
+.mat-mdc-standard-chip.personal {
+  background-color: #f3e5f5 !important;
+  --mdc-chip-label-text-color: #9c27b0 !important;
+}
+.mat-mdc-standard-chip.home {
+  background-color: #eceff1 !important;
+  --mdc-chip-label-text-color: #546e7a !important;
+}
 
 // Priority chips
-.mat-mdc-standard-chip.priority-high { background-color: #ffebee !important; --mdc-chip-label-text-color: #d32f2f !important; }
-.mat-mdc-standard-chip.priority-medium { background-color: #fff3e0 !important; --mdc-chip-label-text-color: #f57c00 !important; }
-.mat-mdc-standard-chip.priority-low { background-color: #e8f5e9 !important; --mdc-chip-label-text-color: #2e7d32 !important; }
+.mat-mdc-standard-chip.priority-high {
+  background-color: #ffebee !important;
+  --mdc-chip-label-text-color: #d32f2f !important;
+}
+.mat-mdc-standard-chip.priority-medium {
+  background-color: #fff3e0 !important;
+  --mdc-chip-label-text-color: #f57c00 !important;
+}
+.mat-mdc-standard-chip.priority-low {
+  background-color: #e8f5e9 !important;
+  --mdc-chip-label-text-color: #2e7d32 !important;
+}
 
 .priority-icon {
   font-size: 16px;
@@ -180,7 +199,6 @@ h6 {
   mat-icon {
     margin-right: 8px;
   }
-
 }
 
 .empty-state {
@@ -190,7 +208,7 @@ h6 {
   justify-content: center;
   padding: 48px;
   color: #6c757d;
-  
+
   .empty-icon {
     font-size: 48px;
     height: 48px;
@@ -212,7 +230,7 @@ h6 {
 .action-button {
   color: #95a5a6;
   margin-top: 0;
-  
+
   &:hover {
     color: #2c3e50;
   }
@@ -224,12 +242,13 @@ h6 {
     .mdc-checkbox__background {
       border-radius: 50% !important;
     }
-    
+
     .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background {
       border-radius: 50% !important;
     }
 
-    .mdc-checkbox__native-control:enabled:not(:checked) ~ .mdc-checkbox__background {
+    .mdc-checkbox__native-control:enabled:not(:checked)
+      ~ .mdc-checkbox__background {
       border-radius: 50% !important;
     }
   }

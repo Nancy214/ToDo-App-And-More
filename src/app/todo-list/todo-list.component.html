@@ -1,21 +1,30 @@
 <div class="container">
-  <mat-card class="outer-card">
+  <mat-card class="outer-card" [class.scrollable]="todos.length > 3">
     <mat-card-header>
       <div class="header-content">
         <mat-card-title>Your Today's To-Do List</mat-card-title>
         <div class="header-actions">
           <mat-form-field appearance="outline" class="search-field">
             <mat-icon matPrefix>search</mat-icon>
-            <input matInput [(ngModel)]="searchText" placeholder="Search tasks" (ngModelChange)="onSearch()">
+            <input
+              matInput
+              [(ngModel)]="searchText"
+              placeholder="Search tasks"
+              (ngModelChange)="onSearch()"
+            />
           </mat-form-field>
-          <button mat-raised-button class="add-button" (click)="openAddTodoDialog()">
+          <button
+            mat-raised-button
+            class="add-button"
+            (click)="openAddTodoDialog()"
+          >
             <mat-icon>add</mat-icon>
             Add New Item
           </button>
         </div>
       </div>
     </mat-card-header>
-    
+
     <mat-card-content>
       <div class="empty-state" *ngIf="todos.length === 0">
         <mat-icon class="empty-icon">assignment</mat-icon>
@@ -32,7 +41,8 @@
                   <mat-checkbox
                     [checked]="todo.completed"
                     (change)="toggleCompletion(todo)"
-                    [color]="'primary'"cd 
+                    [color]="'primary'"
+                    cd
                   >
                   </mat-checkbox>
                   <h6>
@@ -42,26 +52,42 @@
                 <div class="todo-metadata">
                   <mat-chip-set>
                     <mat-chip [class]="todo.category.toLowerCase()">
-                      {{todo.category}}
+                      {{ todo.category }}
                     </mat-chip>
-                    <mat-chip [class]="'priority-' + todo.priority.toLowerCase()">
-                      <mat-icon class="priority-icon">fiber_manual_record </mat-icon>
-                      {{todo.priority}}
+                    <mat-chip
+                      [class]="'priority-' + todo.priority.toLowerCase()"
+                    >
+                      <mat-icon class="priority-icon"
+                        >fiber_manual_record
+                      </mat-icon>
+                      {{ todo.priority }}
                     </mat-chip>
                   </mat-chip-set>
                 </div>
               </div>
 
               <div class="actions">
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="action-button">
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="menu"
+                  class="action-button"
+                >
                   <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item [disabled]="todo.completed" (click)="openEditTodoDialog(todo)">
+                  <button
+                    mat-menu-item
+                    [disabled]="todo.completed"
+                    (click)="openEditTodoDialog(todo)"
+                  >
                     <mat-icon>edit</mat-icon>
                     <span>Edit</span>
                   </button>
-                  <button mat-menu-item [disabled]="todo.completed" (click)="deleteTodo(todo.id)">
+                  <button
+                    mat-menu-item
+                    [disabled]="todo.completed"
+                    (click)="deleteTodo(todo.id)"
+                  >
                     <mat-icon>delete</mat-icon>
                     <span>Delete</span>
                   </button>
